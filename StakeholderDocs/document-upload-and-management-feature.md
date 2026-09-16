@@ -295,14 +295,13 @@ public interface IFileStorageService
 **Clean State for Testing:**
 
 - Before testing document upload for the first time, ensure clean database state
-- If previous upload attempts failed, drop and recreate database to remove orphaned records:
+- If previous upload attempts failed, delete and recreate the SQLite database to remove orphaned records:
   ```powershell
-  sqllocaldb stop mssqllocaldb
-  sqllocaldb delete mssqllocaldb
+  Remove-Item .\App_Data\contosodashboard.db -ErrorAction SilentlyContinue
   # Database will be recreated automatically on next run
   ```
 - Orphaned records with empty FilePath values will cause duplicate key violations
-- For LocalDB: `dotnet ef database drop --force` also works if EF tools are installed
+- `dotnet ef database drop --force` also works if EF tools are installed
 
 ## Assumptions
 
